@@ -1,0 +1,22 @@
+GET localhost:8080/word_segment?text=hello%20world
+
+###
+
+POST localhost:8080/word_segment
+Content-Type: application/json
+
+{
+  "text": "hello world"
+}
+
+###
+
+POST localhost:8080/batch_word_segment
+Content-Type: application/json
+
+{
+  "texts": [
+    "hello world",
+    "Ông Nguyễn Khắc Chúc  đang làm việc tại Đại học Quốc gia Hà Nội. Bà Lan, vợ ông Chúc, cũng làm việc tại đây."
+  ]
+}
