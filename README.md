@@ -6,6 +6,8 @@ docker compose build
 docker compose up
 ```
 
+Then you can access the API at http://localhost:8080
+
 API usage can be found in [the restapi.http file](./restapi.http).
 
 ```bash
