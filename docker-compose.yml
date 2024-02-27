@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  rdr-segmenter-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: thaiminhpv/rdr-segmenter-api:1.0.0
+    container_name: rdr-segmenter-api
+    ports:
+      - "8080:8080"
