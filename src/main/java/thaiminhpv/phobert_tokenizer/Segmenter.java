@@ -1,5 +1,6 @@
 package thaiminhpv.phobert_tokenizer;
 
+import org.jooq.lambda.Unchecked;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -36,4 +37,9 @@ public class Segmenter {
                 .collect(Collectors.toList());
     }
 
+    public List<List<String>> batch_segment(List<String> texts) throws IOException {
+        return texts.parallelStream()
+                .map(Unchecked.function(this::segment))
+                .collect(Collectors.toList());
+    }
 }

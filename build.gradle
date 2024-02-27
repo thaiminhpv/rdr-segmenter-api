@@ -24,6 +24,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'VnCoreNLP:VnCoreNLP:1.2'
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'org.jooq:jool:0.9.15'
 }
 
 configurations {
