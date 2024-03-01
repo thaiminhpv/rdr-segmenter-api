@@ -23,6 +23,7 @@ public class Segmenter {
         System.out.println("Segmenter initialized");
         try {
             this.model = new VnCoreNLP(ANNOTATORS);
+            this.model.annotate(new Annotation("Done init segmenter!")); // avoid java.util.ConcurrentModificationException later if 2 concurrent init request
         } catch (Exception e) {
             e.printStackTrace();
         }
