@@ -20,18 +20,23 @@ public class Segmenter {
 
     @PostConstruct
     public void init() {
-        System.out.println("Segmenter initialized");
         try {
             this.model = new VnCoreNLP(ANNOTATORS);
-            this.model.annotate(new Annotation("Done init segmenter!")); // avoid java.util.ConcurrentModificationException later if 2 concurrent init request
+            Annotation annotation = new Annotation("Init segmenter 1!");
+            this.model.annotate(annotation); // avoid java.util.ConcurrentModificationException later if 2 concurrent init request
+            Annotation annotation2 = new Annotation("Init segmenter done!");
+            this.model.annotate(annotation2); // avoid java.util.ConcurrentModificationException later if 2 concurrent init request
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Segmenter initialized");
     }
 
     public List<String> segment(String text) throws IOException {
         Annotation annotation = new Annotation(text);
-        this.model.annotate(annotation);
+        synchronized (this) {
+            this.model.annotate(annotation);
+        }
         return annotation.getWords()
                 .stream()
                 .map(Word::getForm)
@@ -39,7 +44,7 @@ public class Segmenter {
     }
 
     public List<List<String>> batch_segment(List<String> texts) throws IOException {
-        return texts.parallelStream()
+        return texts.stream()
                 .map(Unchecked.function(this::segment))
                 .collect(Collectors.toList());
     }
